@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.alks.myfirstcomposeapp.components.MyText
+import com.alks.myfirstcomposeapp.components.MyTextField
 import com.alks.myfirstcomposeapp.components.layout.ExerciseOne
 import com.alks.myfirstcomposeapp.components.layout.MyBox
 import com.alks.myfirstcomposeapp.components.layout.MyColumn
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyFirstComposeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyText(Modifier.padding(innerPadding))
+                    MyTextField(Modifier.padding(innerPadding))
                 }
             }
         }
