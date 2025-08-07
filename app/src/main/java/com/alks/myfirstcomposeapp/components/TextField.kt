@@ -23,6 +23,8 @@ fun MyTextFieldParent(modifier: Modifier) {
     Column(modifier = modifier) {
         MyTextField(user = user) { user = it }
         MySecondTextField(value = value) { value = it }
+        MyAdvanceTextField(value = value) { value = it }
+
     }
 }
 
@@ -38,4 +40,15 @@ fun MySecondTextField(value: String, onValueChange: (String) -> Unit) {
             .size(40.dp)
             .background(Color.Red))
     }, label = { Text("Introduce tu Nombre:") })
+}
+
+@Composable
+fun MyAdvanceTextField(value: String, onValueChange: (String) -> Unit) {
+    TextField(value, onValueChange = {
+//        if(it.contains("a")){
+        onValueChange(it.replace("a", ""))
+//        }else{
+//            onValueChange(it)
+//        }
+    })
 }
