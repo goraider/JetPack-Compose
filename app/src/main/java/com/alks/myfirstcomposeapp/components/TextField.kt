@@ -3,7 +3,11 @@ package com.alks.myfirstcomposeapp.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -24,7 +28,8 @@ fun MyTextFieldParent(modifier: Modifier) {
         MyTextField(user = user) { user = it }
         MySecondTextField(value = value) { value = it }
         MyAdvanceTextField(value = value) { value = it }
-
+        Spacer(Modifier.height(20.dp))
+        MyOutlinedTextField(value = value) { value = it }
     }
 }
 
@@ -51,4 +56,9 @@ fun MyAdvanceTextField(value: String, onValueChange: (String) -> Unit) {
 //            onValueChange(it)
 //        }
     })
+}
+@Composable
+fun MyOutlinedTextField(value: String, onValueChange: (String) -> Unit){
+    OutlinedTextField(value = value, onValueChange = {onValueChange(it)})
+    //BasicTextField(value = value, onValueChange = {onValueChange(it)})
 }
