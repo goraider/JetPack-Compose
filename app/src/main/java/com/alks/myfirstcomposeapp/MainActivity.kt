@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.alks.myfirstcomposeapp.components.MyButtons
 import com.alks.myfirstcomposeapp.components.MyNetworkImage
+import com.alks.myfirstcomposeapp.components.MySwitch
 import com.alks.myfirstcomposeapp.components.MyText
 import com.alks.myfirstcomposeapp.components.MyTextField
 import com.alks.myfirstcomposeapp.components.MyTextFieldParent
@@ -37,7 +38,8 @@ class MainActivity : ComponentActivity() {
                     //MyButtons(Modifier.padding(innerPadding))
                     //MyNetworkImage()
                     //ProgressAdvance(Modifier.padding(innerPadding))
-                    ProgressAnimation(Modifier.padding(innerPadding))
+                    //ProgressAnimation(Modifier.padding(innerPadding))
+                    MySwitch(Modifier.padding(innerPadding))
                 }
             }
         }
