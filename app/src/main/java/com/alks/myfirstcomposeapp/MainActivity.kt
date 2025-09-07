@@ -11,11 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.alks.myfirstcomposeapp.components.MyButtons
+import com.alks.myfirstcomposeapp.components.MyCheckBox
 import com.alks.myfirstcomposeapp.components.MyNetworkImage
 import com.alks.myfirstcomposeapp.components.MySwitch
 import com.alks.myfirstcomposeapp.components.MyText
 import com.alks.myfirstcomposeapp.components.MyTextField
 import com.alks.myfirstcomposeapp.components.MyTextFieldParent
+import com.alks.myfirstcomposeapp.components.MyTriStateCheckBox
+import com.alks.myfirstcomposeapp.components.ParentCheckBoxes
 import com.alks.myfirstcomposeapp.components.Progress
 import com.alks.myfirstcomposeapp.components.ProgressAdvance
 import com.alks.myfirstcomposeapp.components.ProgressAnimation
@@ -39,7 +42,10 @@ class MainActivity : ComponentActivity() {
                     //MyNetworkImage()
                     //ProgressAdvance(Modifier.padding(innerPadding))
                     //ProgressAnimation(Modifier.padding(innerPadding))
-                    MySwitch(Modifier.padding(innerPadding))
+                    //MySwitch(Modifier.padding(innerPadding))
+                    //MyCheckBox(Modifier.padding(innerPadding))
+                    //ParentCheckBoxes(Modifier.padding(innerPadding))
+                    MyTriStateCheckBox(Modifier.padding(innerPadding))
                 }
             }
         }
