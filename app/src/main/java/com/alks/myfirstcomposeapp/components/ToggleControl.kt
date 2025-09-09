@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonColors
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -182,5 +185,48 @@ fun MyTriStateCheckBox(modifier: Modifier = Modifier) {
             Text("Ejemplo 2")
         }
     }
-    
+}
+
+@Composable
+fun MyRadioButton(modifier: Modifier = Modifier) {
+    var state: Boolean by remember { mutableStateOf(false) }
+
+    Row(modifier = modifier.clickable{ state = !state }, verticalAlignment = Alignment.CenterVertically){
+        RadioButton(
+            selected = state,
+            onClick = { state = true },
+            enabled = false,
+            colors = RadioButtonDefaults.colors(
+                selectedColor = Color.Red,
+                unselectedColor = Color.Yellow,
+                disabledSelectedColor = Color.Green,
+                disabledUnselectedColor = Color.Magenta
+            )
+        )
+        Text("Ejemplo 1")
+    }
+}
+
+@Composable
+fun MyRadioButtonList(modifier: Modifier = Modifier) {
+    var selectedName: String by remember { mutableStateOf("") }
+    Column(modifier = modifier){
+        RadioButtonComponent(name = "Coors", selectedName = selectedName){ selectedName = it }
+        RadioButtonComponent(name = "Aris", selectedName = selectedName){ selectedName = it }
+        RadioButtonComponent(name = "FillDor", selectedName = selectedName){ selectedName = it }
+        RadioButtonComponent(name = "Troousk", selectedName = selectedName){ selectedName = it }
+    }
+
+}
+
+@Composable
+fun RadioButtonComponent(
+    name: String,
+    selectedName: String,
+    onItemSelected:(String) -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically){
+        RadioButton(selected = name === selectedName, onClick = { onItemSelected(name) })
+        Text(name, Modifier.clickable{ onItemSelected(name)})
+    }
+
 }

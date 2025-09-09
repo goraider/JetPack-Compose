@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.alks.myfirstcomposeapp.components.MyButtons
 import com.alks.myfirstcomposeapp.components.MyCheckBox
 import com.alks.myfirstcomposeapp.components.MyNetworkImage
+import com.alks.myfirstcomposeapp.components.MyRadioButton
+import com.alks.myfirstcomposeapp.components.MyRadioButtonList
 import com.alks.myfirstcomposeapp.components.MySwitch
 import com.alks.myfirstcomposeapp.components.MyText
 import com.alks.myfirstcomposeapp.components.MyTextField
@@ -45,7 +47,9 @@ class MainActivity : ComponentActivity() {
                     //MySwitch(Modifier.padding(innerPadding))
                     //MyCheckBox(Modifier.padding(innerPadding))
                     //ParentCheckBoxes(Modifier.padding(innerPadding))
-                    MyTriStateCheckBox(Modifier.padding(innerPadding))
+                    //MyTriStateCheckBox(Modifier.padding(innerPadding))
+                    //MyRadioButton(Modifier.padding(innerPadding))
+                    MyRadioButtonList(Modifier.padding(innerPadding))
                 }
             }
         }
