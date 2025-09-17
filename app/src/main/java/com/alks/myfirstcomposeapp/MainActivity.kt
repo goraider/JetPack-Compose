@@ -12,6 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.alks.myfirstcomposeapp.components.MyButtons
 import com.alks.myfirstcomposeapp.components.MyCheckBox
+import com.alks.myfirstcomposeapp.components.MyDropDownItem
+import com.alks.myfirstcomposeapp.components.MyDropDownMenu
+import com.alks.myfirstcomposeapp.components.MyExposedDropDownMenu
 import com.alks.myfirstcomposeapp.components.MyNetworkImage
 import com.alks.myfirstcomposeapp.components.MyRadioButton
 import com.alks.myfirstcomposeapp.components.MyRadioButtonList
@@ -55,7 +58,10 @@ class MainActivity : ComponentActivity() {
                     //MyRadioButtonList(Modifier.padding(innerPadding))
                     //MySlider(Modifier.padding(innerPadding))
                     //MySliderAdvance(Modifier.padding(innerPadding))
-                    MyRangeSlider(Modifier.padding(innerPadding))
+                    //MyRangeSlider(Modifier.padding(innerPadding))
+                    //MyDropDownItem(Modifier.padding(innerPadding))
+                    //MyDropDownMenu(Modifier.padding(innerPadding))
+                    MyExposedDropDownMenu(Modifier.padding(innerPadding))
                 }
             }
         }
