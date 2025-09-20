@@ -9,12 +9,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -28,6 +31,7 @@ import com.alks.myfirstcomposeapp.components.MyDropDownItem
 import com.alks.myfirstcomposeapp.components.MyDropDownMenu
 import com.alks.myfirstcomposeapp.components.MyExposedDropDownMenu
 import com.alks.myfirstcomposeapp.components.MyFAB
+import com.alks.myfirstcomposeapp.components.MyModalDrawer
 import com.alks.myfirstcomposeapp.components.MyNavigationBar
 import com.alks.myfirstcomposeapp.components.MyNetworkImage
 import com.alks.myfirstcomposeapp.components.MyRadioButton
@@ -62,53 +66,58 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyFirstComposeAppTheme {
+                val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val snackbarHostState: SnackbarHostState = remember{ SnackbarHostState() }
                 val scope:CoroutineScope = rememberCoroutineScope()
-                Scaffold(
+
+                MyModalDrawer(drawerState) {
+                    Scaffold(
                         modifier = Modifier.fillMaxSize(),
-                        topBar = { MyTopAppBar() },
+                        topBar = { MyTopAppBar { scope.launch { drawerState.open() } } },
                         snackbarHost ={ SnackbarHost(hostState = snackbarHostState) },
                         floatingActionButton = { MyFAB() },
                         floatingActionButtonPosition = FabPosition.Center,
                         bottomBar = { MyNavigationBar() }
                     ) { innerPadding ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)
-                            .background(Color.Gray),
-                        contentAlignment = Alignment.Center
-                    ){
-                        Text("Esta es mi Screen", modifier = Modifier.clickable{
-                            scope.launch {
-                                val result: SnackbarResult = snackbarHostState.showSnackbar(
-                                    "ejemplo de un snackbar", "Deshacer"
-                                )
-                                if(result === SnackbarResult.ActionPerformed){
-                                    //Pulso desahacer
-                                }else{
-                                    //no hizo nada
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding)
+                                .background(Color.Gray),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Text("Esta es mi Screen", modifier = Modifier.clickable{
+                                scope.launch {
+                                    val result: SnackbarResult = snackbarHostState.showSnackbar(
+                                        "ejemplo de un snackbar", "Deshacer"
+                                    )
+                                    if(result === SnackbarResult.ActionPerformed){
+                                        //Pulso desahacer
+                                    }else{
+                                        //no hizo nada
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
+                        //MyButtons(Modifier.padding(innerPadding))
+                        //MyNetworkImage()
+                        //ProgressAdvance(Modifier.padding(innerPadding))
+                        //ProgressAnimation(Modifier.padding(innerPadding))
+                        //MySwitch(Modifier.padding(innerPadding))
+                        //MyCheckBox(Modifier.padding(innerPadding))
+                        //ParentCheckBoxes(Modifier.padding(innerPadding))
+                        //MyTriStateCheckBox(Modifier.padding(innerPadding))
+                        //MyRadioButton(Modifier.padding(innerPadding))
+                        //MyRadioButtonList(Modifier.padding(innerPadding))
+                        //MySlider(Modifier.padding(innerPadding))
+                        //MySliderAdvance(Modifier.padding(innerPadding))
+                        //MyRangeSlider(Modifier.padding(innerPadding))
+                        //MyDropDownItem(Modifier.padding(innerPadding))
+                        //MyDropDownMenu(Modifier.padding(innerPadding))
+                        //MyExposedDropDownMenu(Modifier.padding(innerPadding))
                     }
-                    //MyButtons(Modifier.padding(innerPadding))
-                    //MyNetworkImage()
-                    //ProgressAdvance(Modifier.padding(innerPadding))
-                    //ProgressAnimation(Modifier.padding(innerPadding))
-                    //MySwitch(Modifier.padding(innerPadding))
-                    //MyCheckBox(Modifier.padding(innerPadding))
-                    //ParentCheckBoxes(Modifier.padding(innerPadding))
-                    //MyTriStateCheckBox(Modifier.padding(innerPadding))
-                    //MyRadioButton(Modifier.padding(innerPadding))
-                    //MyRadioButtonList(Modifier.padding(innerPadding))
-                    //MySlider(Modifier.padding(innerPadding))
-                    //MySliderAdvance(Modifier.padding(innerPadding))
-                    //MyRangeSlider(Modifier.padding(innerPadding))
-                    //MyDropDownItem(Modifier.padding(innerPadding))
-                    //MyDropDownMenu(Modifier.padding(innerPadding))
-                    //MyExposedDropDownMenu(Modifier.padding(innerPadding))
                 }
+
             }
         }
     }

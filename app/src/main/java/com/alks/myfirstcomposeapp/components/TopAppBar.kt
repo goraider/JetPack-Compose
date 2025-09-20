@@ -1,5 +1,6 @@
 package com.alks.myfirstcomposeapp.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -13,12 +14,13 @@ import com.alks.myfirstcomposeapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTopAppBar(modifier: Modifier = Modifier) {
-    TopAppBar(title = { Text("My App") },
+fun MyTopAppBar(modifier: Modifier = Modifier, onNavSelected:() -> Unit) {
+    TopAppBar(title = { Text("My App", modifier = Modifier.clickable{ onNavSelected() }  ) },
         navigationIcon = {
             Icon(
                 painter = painterResource(R.drawable.ic_android),
                 contentDescription = null,
+                modifier = Modifier.clickable{ onNavSelected() }
             )
         },
         actions = {
