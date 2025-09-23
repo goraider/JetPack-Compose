@@ -26,14 +26,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.alks.myfirstcomposeapp.components.MyButtons
+import com.alks.myfirstcomposeapp.components.MyCard
 import com.alks.myfirstcomposeapp.components.MyCheckBox
 import com.alks.myfirstcomposeapp.components.MyDropDownItem
 import com.alks.myfirstcomposeapp.components.MyDropDownMenu
+import com.alks.myfirstcomposeapp.components.MyElevatedCard
 import com.alks.myfirstcomposeapp.components.MyExposedDropDownMenu
 import com.alks.myfirstcomposeapp.components.MyFAB
 import com.alks.myfirstcomposeapp.components.MyModalDrawer
 import com.alks.myfirstcomposeapp.components.MyNavigationBar
 import com.alks.myfirstcomposeapp.components.MyNetworkImage
+import com.alks.myfirstcomposeapp.components.MyOutlinedCard
 import com.alks.myfirstcomposeapp.components.MyRadioButton
 import com.alks.myfirstcomposeapp.components.MyRadioButtonList
 import com.alks.myfirstcomposeapp.components.MyRangeSlider
@@ -66,39 +69,47 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyFirstComposeAppTheme {
-                val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-                val snackbarHostState: SnackbarHostState = remember{ SnackbarHostState() }
-                val scope:CoroutineScope = rememberCoroutineScope()
-
-                MyModalDrawer(drawerState) {
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize(),
-                        topBar = { MyTopAppBar { scope.launch { drawerState.open() } } },
-                        snackbarHost ={ SnackbarHost(hostState = snackbarHostState) },
-                        floatingActionButton = { MyFAB() },
-                        floatingActionButtonPosition = FabPosition.Center,
-                        bottomBar = { MyNavigationBar() }
-                    ) { innerPadding ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(innerPadding)
-                                .background(Color.Gray),
-                            contentAlignment = Alignment.Center
-                        ){
-                            Text("Esta es mi Screen", modifier = Modifier.clickable{
-                                scope.launch {
-                                    val result: SnackbarResult = snackbarHostState.showSnackbar(
-                                        "ejemplo de un snackbar", "Deshacer"
-                                    )
-                                    if(result === SnackbarResult.ActionPerformed){
-                                        //Pulso desahacer
-                                    }else{
-                                        //no hizo nada
-                                    }
-                                }
-                            })
-                        }
+                Scaffold(modifier = Modifier.fillMaxSize()){ innerPadding ->
+                    //MyCard(Modifier.padding(innerPadding))
+                    //MyElevatedCard(Modifier.padding(innerPadding))
+                    MyOutlinedCard(Modifier.padding(innerPadding))
+                }
+            }
+        }
+//            MyFirstComposeAppTheme {
+//                val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+//                val snackbarHostState: SnackbarHostState = remember{ SnackbarHostState() }
+//                val scope:CoroutineScope = rememberCoroutineScope()
+//
+//                MyModalDrawer(drawerState) {
+//                    Scaffold(
+//                        modifier = Modifier.fillMaxSize(),
+//                        topBar = { MyTopAppBar { scope.launch { drawerState.open() } } },
+//                        snackbarHost ={ SnackbarHost(hostState = snackbarHostState) },
+//                        floatingActionButton = { MyFAB() },
+//                        floatingActionButtonPosition = FabPosition.Center,
+//                        bottomBar = { MyNavigationBar() }
+//                    ) { innerPadding ->
+//                        Box(
+//                            modifier = Modifier
+//                                .fillMaxSize()
+//                                .padding(innerPadding)
+//                                .background(Color.Gray),
+//                            contentAlignment = Alignment.Center
+//                        ){
+//                            Text("Esta es mi Screen", modifier = Modifier.clickable{
+//                                scope.launch {
+//                                    val result: SnackbarResult = snackbarHostState.showSnackbar(
+//                                        "ejemplo de un snackbar", "Deshacer"
+//                                    )
+//                                    if(result === SnackbarResult.ActionPerformed){
+//                                        //Pulso desahacer
+//                                    }else{
+//                                        //no hizo nada
+//                                    }
+//                                }
+//                            })
+//                        }
                         //MyButtons(Modifier.padding(innerPadding))
                         //MyNetworkImage()
                         //ProgressAdvance(Modifier.padding(innerPadding))
@@ -116,12 +127,11 @@ class MainActivity : ComponentActivity() {
                         //MyDropDownMenu(Modifier.padding(innerPadding))
                         //MyExposedDropDownMenu(Modifier.padding(innerPadding))
                     }
-                }
+                //}
 
-            }
-        }
+            //}
+        //}
     }
-}
 
 
 
