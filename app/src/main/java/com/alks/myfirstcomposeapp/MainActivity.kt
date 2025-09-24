@@ -25,9 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.alks.myfirstcomposeapp.components.MyBadgeBox
 import com.alks.myfirstcomposeapp.components.MyButtons
 import com.alks.myfirstcomposeapp.components.MyCard
 import com.alks.myfirstcomposeapp.components.MyCheckBox
+import com.alks.myfirstcomposeapp.components.MyDivider
 import com.alks.myfirstcomposeapp.components.MyDropDownItem
 import com.alks.myfirstcomposeapp.components.MyDropDownMenu
 import com.alks.myfirstcomposeapp.components.MyElevatedCard
@@ -72,7 +74,9 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()){ innerPadding ->
                     //MyCard(Modifier.padding(innerPadding))
                     //MyElevatedCard(Modifier.padding(innerPadding))
-                    MyOutlinedCard(Modifier.padding(innerPadding))
+                    //MyOutlinedCard(Modifier.padding(innerPadding))
+                    //MyBadgeBox(Modifier.padding(innerPadding))
+                    MyDivider(Modifier.padding(innerPadding))
                 }
             }
         }
