@@ -29,6 +29,7 @@ import com.alks.myfirstcomposeapp.components.MyBadgeBox
 import com.alks.myfirstcomposeapp.components.MyButtons
 import com.alks.myfirstcomposeapp.components.MyCard
 import com.alks.myfirstcomposeapp.components.MyCheckBox
+import com.alks.myfirstcomposeapp.components.MyDialog
 import com.alks.myfirstcomposeapp.components.MyDivider
 import com.alks.myfirstcomposeapp.components.MyDropDownItem
 import com.alks.myfirstcomposeapp.components.MyDropDownMenu
@@ -71,73 +72,48 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyFirstComposeAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()){ innerPadding ->
-                    //MyCard(Modifier.padding(innerPadding))
-                    //MyElevatedCard(Modifier.padding(innerPadding))
-                    //MyOutlinedCard(Modifier.padding(innerPadding))
-                    //MyBadgeBox(Modifier.padding(innerPadding))
-                    MyDivider(Modifier.padding(innerPadding))
+                val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+                val snackbarHostState: SnackbarHostState = remember{ SnackbarHostState() }
+                val scope:CoroutineScope = rememberCoroutineScope()
+                MyDialog()
+                MyModalDrawer(drawerState) {
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize(),
+                        topBar = { MyTopAppBar { scope.launch { drawerState.open() } } },
+                        snackbarHost ={ SnackbarHost(hostState = snackbarHostState) },
+                        floatingActionButton = { MyFAB() },
+                        floatingActionButtonPosition = FabPosition.Center,
+                        bottomBar = { MyNavigationBar() }
+                    ) { innerPadding ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding)
+                                .background(Color.Gray),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Text("Esta es mi Screen", modifier = Modifier.clickable{
+                                scope.launch {
+                                    val result: SnackbarResult = snackbarHostState.showSnackbar(
+                                        "ejemplo de un snackbar", "Deshacer"
+                                    )
+                                    if(result === SnackbarResult.ActionPerformed){
+                                        //Pulso desahacer
+                                    }else{
+                                        //no hizo nada
+                                    }
+                                }
+                            })
+                        }
+                        MyExposedDropDownMenu(Modifier.padding(innerPadding))
+                    }
                 }
+
             }
         }
-//            MyFirstComposeAppTheme {
-//                val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-//                val snackbarHostState: SnackbarHostState = remember{ SnackbarHostState() }
-//                val scope:CoroutineScope = rememberCoroutineScope()
-//
-//                MyModalDrawer(drawerState) {
-//                    Scaffold(
-//                        modifier = Modifier.fillMaxSize(),
-//                        topBar = { MyTopAppBar { scope.launch { drawerState.open() } } },
-//                        snackbarHost ={ SnackbarHost(hostState = snackbarHostState) },
-//                        floatingActionButton = { MyFAB() },
-//                        floatingActionButtonPosition = FabPosition.Center,
-//                        bottomBar = { MyNavigationBar() }
-//                    ) { innerPadding ->
-//                        Box(
-//                            modifier = Modifier
-//                                .fillMaxSize()
-//                                .padding(innerPadding)
-//                                .background(Color.Gray),
-//                            contentAlignment = Alignment.Center
-//                        ){
-//                            Text("Esta es mi Screen", modifier = Modifier.clickable{
-//                                scope.launch {
-//                                    val result: SnackbarResult = snackbarHostState.showSnackbar(
-//                                        "ejemplo de un snackbar", "Deshacer"
-//                                    )
-//                                    if(result === SnackbarResult.ActionPerformed){
-//                                        //Pulso desahacer
-//                                    }else{
-//                                        //no hizo nada
-//                                    }
-//                                }
-//                            })
-//                        }
-                        //MyButtons(Modifier.padding(innerPadding))
-                        //MyNetworkImage()
-                        //ProgressAdvance(Modifier.padding(innerPadding))
-                        //ProgressAnimation(Modifier.padding(innerPadding))
-                        //MySwitch(Modifier.padding(innerPadding))
-                        //MyCheckBox(Modifier.padding(innerPadding))
-                        //ParentCheckBoxes(Modifier.padding(innerPadding))
-                        //MyTriStateCheckBox(Modifier.padding(innerPadding))
-                        //MyRadioButton(Modifier.padding(innerPadding))
-                        //MyRadioButtonList(Modifier.padding(innerPadding))
-                        //MySlider(Modifier.padding(innerPadding))
-                        //MySliderAdvance(Modifier.padding(innerPadding))
-                        //MyRangeSlider(Modifier.padding(innerPadding))
-                        //MyDropDownItem(Modifier.padding(innerPadding))
-                        //MyDropDownMenu(Modifier.padding(innerPadding))
-                        //MyExposedDropDownMenu(Modifier.padding(innerPadding))
-                    }
-                //}
-
-            //}
-        //}
     }
 
-
+}
 
 @Preview(showBackground = true)
 @Composable
@@ -145,4 +121,31 @@ fun GreetingPreview() {
     MyFirstComposeAppTheme {
         Greeting("Android")
     }
+    /**           MyFirstComposeAppTheme {
+    Scaffold(modifier = Modifier.fillMaxSize()){ innerPadding ->
+            // MyButtons(Modifier.padding(innerPadding))
+            // MyNetworkImage()
+            // ProgressAdvance(Modifier.padding(innerPadding))
+            // ProgressAnimation(Modifier.padding(innerPadding))
+            // MySwitch(Modifier.padding(innerPadding))
+            // MyCheckBox(Modifier.padding(innerPadding))
+            // ParentCheckBoxes(Modifier.padding(innerPadding))
+            // MyTriStateCheckBox(Modifier.padding(innerPadding))
+            // MyRadioButton(Modifier.padding(innerPadding))
+            // MyRadioButtonList(Modifier.padding(innerPadding))
+            // MySlider(Modifier.padding(innerPadding))
+            // MySliderAdvance(Modifier.padding(innerPadding))
+            // MyRangeSlider(Modifier.padding(innerPadding))
+            // MyDropDownItem(Modifier.padding(innerPadding))
+            // MyDropDownMenu(Modifier.padding(innerPadding))
+            // MyExposedDropDownMenu(Modifier.padding(innerPadding))
+            // MyCard(Modifier.padding(innerPadding))
+            // MyElevatedCard(Modifier.padding(innerPadding))
+            // MyOutlinedCard(Modifier.padding(innerPadding))
+            // MyBadgeBox(Modifier.padding(innerPadding))
+                MyDivider(Modifier.padding(innerPadding))
+            }
+        }
+     */
+
 }

@@ -1,11 +1,18 @@
 package com.alks.myfirstcomposeapp.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
@@ -13,6 +20,8 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Label
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -27,11 +36,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.alks.myfirstcomposeapp.components.model.DrawerItem
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun MyModalDrawer(drawerState: DrawerState, content:@Composable () -> Unit) {
@@ -49,7 +60,7 @@ fun MyModalDrawer(drawerState: DrawerState, content:@Composable () -> Unit) {
         drawerContent = {
             ModalDrawerSheet(
                 drawerShape = RoundedCornerShape(topEndPercent = 16, bottomEndPercent = 16, bottomStartPercent = 0),
-                drawerContentColor = Color.White,
+                drawerContentColor = Color.Black,
                 drawerContainerColor = Color.Black,
                 drawerTonalElevation = 10.dp
             ) {
@@ -60,33 +71,55 @@ fun MyModalDrawer(drawerState: DrawerState, content:@Composable () -> Unit) {
                         selected = selectedIndex == index,
                         onClick = {
                             selectedIndex = index
+//                            scope.launch {
+//                                drawerState.close()
+//                            }
                         },
                         icon = { Icon(imageVector = drawerItem.icon, contentDescription = null) },
                         badge = {
                             if(drawerItem.notification > 0){
                                 Badge (
-                                    containerColor = if(selectedIndex == index) Color.Black else Color.Gray,
-                                    contentColor = if(selectedIndex == index) Color.White else Color.White,
+                                    containerColor = if(selectedIndex == index) Color.White else Color.DarkGray,
+                                    contentColor = if(selectedIndex == index) Color.Black else Color.Gray,
                                 ){ Text(drawerItem.notification.toString()) }
                             }
                         },
                         shape = RoundedCornerShape(0),
                         colors = NavigationDrawerItemDefaults.colors(
-                            selectedContainerColor = Color.Gray,
-                            selectedIconColor = Color.Black,
-                            selectedTextColor = Color.Black,
+                            selectedContainerColor = Color.Transparent,
+                            selectedIconColor = Color.White,
+                            selectedTextColor = Color.White,
                             selectedBadgeColor = Color.Yellow,
-                            unselectedContainerColor = Color.White,
-                            unselectedTextColor = Color.Gray,
-                            unselectedBadgeColor = Color.Green,
-                            unselectedIconColor = Color.Gray
+                            unselectedContainerColor = Color.Black,
+                            unselectedTextColor = Color.DarkGray,
+                            unselectedBadgeColor = Color.DarkGray,
+                            unselectedIconColor = Color.DarkGray
                         )
                     )
+                }
+                Column (
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(end = 16.dp, top = 16.dp),
+                    verticalArrangement = Arrangement.Bottom,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    IconButton(
+                        onClick = { scope.launch { drawerState.close() } },
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = Color.DarkGray, // Background color of the button
+                            contentColor = Color.White, // Color of the icon and text (if any)
+                            disabledContainerColor = Color.Gray, // Background color when disabled
+                            disabledContentColor = Color.Gray // Content color when disabled
+                        )
+                    ) {
+                        Icon( imageVector = Icons.Default.Close, contentDescription = "Cerrar menú", tint = Color.White)
+                    }
                 }
                 //Text("ejemplo 1", modifier = Modifier.clickable{ scope.launch { drawerState.close() } })
             }
         },
-        scrimColor = Color.Transparent.copy(alpha = 0.7f)
+        scrimColor = Color.Transparent.copy(alpha = 0.4f)
     ) {
         content()
     }
