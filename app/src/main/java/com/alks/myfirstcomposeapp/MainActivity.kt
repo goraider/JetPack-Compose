@@ -29,6 +29,7 @@ import com.alks.myfirstcomposeapp.components.MyBadgeBox
 import com.alks.myfirstcomposeapp.components.MyButtons
 import com.alks.myfirstcomposeapp.components.MyCard
 import com.alks.myfirstcomposeapp.components.MyCheckBox
+import com.alks.myfirstcomposeapp.components.MyDateDialog
 import com.alks.myfirstcomposeapp.components.MyDialog
 import com.alks.myfirstcomposeapp.components.MyDivider
 import com.alks.myfirstcomposeapp.components.MyDropDownItem
@@ -75,7 +76,7 @@ class MainActivity : ComponentActivity() {
                 val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val snackbarHostState: SnackbarHostState = remember{ SnackbarHostState() }
                 val scope:CoroutineScope = rememberCoroutineScope()
-                MyDialog()
+                MyDateDialog()
                 MyModalDrawer(drawerState) {
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
