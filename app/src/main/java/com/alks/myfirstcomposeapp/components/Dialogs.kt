@@ -1,7 +1,19 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.alks.myfirstcomposeapp.components
 
+import android.R
+import android.app.Dialog
 import android.provider.CalendarContract
 import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -18,17 +30,27 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TimePickerDefaults
+import androidx.compose.material3.TimePickerLayoutType
+import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.SecureFlagPolicy
+import com.alks.myfirstcomposeapp.components.model.PokemonCombat
 import java.util.Calendar
 
 @Composable
@@ -63,7 +85,7 @@ fun MyDialog(modifier: Modifier = Modifier) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun MyDateDialog(modifier: Modifier = Modifier) {
     var showDialog by remember { mutableStateOf(true) }
@@ -104,6 +126,88 @@ fun MyDateDialog(modifier: Modifier = Modifier) {
             colors = DatePickerDefaults.colors()
         ) {
             DatePicker(datePickerState)
+        }
+    }
+}
+
+@Composable
+fun MyTimePicker(modifier: Modifier = Modifier) {
+    var showTimePicker: Boolean by remember { mutableStateOf(true) }
+    val timePickerState: TimePickerState = rememberTimePickerState(
+        initialHour = 7,
+        initialMinute = 33,
+        is24Hour = false
+    )
+
+    if(showTimePicker) {
+        Dialog(onDismissRequest = {showTimePicker = false }) {
+            Column(modifier = Modifier
+                .background(Color.White)
+                .padding(24.dp)){
+                TimePicker(timePickerState,
+                    layoutType = TimePickerLayoutType.Vertical,
+                    colors = TimePickerDefaults.colors(
+
+                        clockDialColor = Color.Black,
+                        clockDialSelectedContentColor = Color.Black,
+                        clockDialUnselectedContentColor = Color.Gray,
+                        selectorColor = Color.White,
+                        containerColor = Color.White,
+                        periodSelectorBorderColor = Color.Black,
+
+                        periodSelectorSelectedContentColor = Color.White,
+                        periodSelectorSelectedContainerColor = Color.Black,
+                        periodSelectorUnselectedContainerColor = Color.White,
+                        periodSelectorUnselectedContentColor = Color.Gray,
+
+                        timeSelectorSelectedContentColor = Color.White,
+                        timeSelectorSelectedContainerColor = Color.Black,
+                        timeSelectorUnselectedContainerColor = Color.White,
+                        timeSelectorUnselectedContentColor = Color.Gray,
+
+
+                    )
+                    )
+            }
+        }
+    }
+}
+
+@Composable
+fun MyCustomDialog(
+    modifier: Modifier = Modifier,
+    pokemonCombat: PokemonCombat,
+    showDialog: Boolean,
+    onStartCombat: ()-> Unit,
+    onDismissDialog: ()-> Unit
+    ) {
+
+    if(showDialog){
+        Dialog(onDismissRequest = {onDismissDialog()}) {
+            Column(modifier = modifier
+                .fillMaxWidth()
+                .background(Color.White, shape = RoundedCornerShape(24))
+                .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    horizontalArrangement = Arrangement.Center
+                    ) {
+                    Text(pokemonCombat.pokemonA, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                    Spacer(Modifier.width(4.dp))
+                    Text("VS")
+                    Spacer(Modifier.width(4.dp))
+                    Text(pokemonCombat.pokemonB, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                }
+                Button(onClick = { onStartCombat() }) {
+                    Text("A LUCHAR!")
+                }
+                TextButton(onClick = { onDismissDialog() }) {
+                    Text("Cancelar")
+                }
+            }
+
         }
     }
     

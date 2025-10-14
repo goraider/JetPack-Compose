@@ -19,8 +19,11 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +32,7 @@ import com.alks.myfirstcomposeapp.components.MyBadgeBox
 import com.alks.myfirstcomposeapp.components.MyButtons
 import com.alks.myfirstcomposeapp.components.MyCard
 import com.alks.myfirstcomposeapp.components.MyCheckBox
+import com.alks.myfirstcomposeapp.components.MyCustomDialog
 import com.alks.myfirstcomposeapp.components.MyDateDialog
 import com.alks.myfirstcomposeapp.components.MyDialog
 import com.alks.myfirstcomposeapp.components.MyDivider
@@ -50,6 +54,7 @@ import com.alks.myfirstcomposeapp.components.MySwitch
 import com.alks.myfirstcomposeapp.components.MyText
 import com.alks.myfirstcomposeapp.components.MyTextField
 import com.alks.myfirstcomposeapp.components.MyTextFieldParent
+import com.alks.myfirstcomposeapp.components.MyTimePicker
 import com.alks.myfirstcomposeapp.components.MyTopAppBar
 import com.alks.myfirstcomposeapp.components.MyTriStateCheckBox
 import com.alks.myfirstcomposeapp.components.ParentCheckBoxes
@@ -62,6 +67,7 @@ import com.alks.myfirstcomposeapp.components.layout.MyColumn
 import com.alks.myfirstcomposeapp.components.layout.MyComplexLayout
 import com.alks.myfirstcomposeapp.components.layout.MyBasicConstraintLayout
 import com.alks.myfirstcomposeapp.components.layout.MyConstraintChallengeLayout
+import com.alks.myfirstcomposeapp.components.model.PokemonCombat
 import com.alks.myfirstcomposeapp.login.Greeting
 import com.alks.myfirstcomposeapp.ui.theme.MyFirstComposeAppTheme
 import kotlinx.coroutines.CoroutineScope
@@ -76,13 +82,25 @@ class MainActivity : ComponentActivity() {
                 val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val snackbarHostState: SnackbarHostState = remember{ SnackbarHostState() }
                 val scope:CoroutineScope = rememberCoroutineScope()
-                MyDateDialog()
+                var showDialog: Boolean by remember { mutableStateOf(false) }
+                val pokemonCombat = PokemonCombat(pokemonA = "Pikachu", pokemonB ="Gengar")
+                //MyDateDialog()
+                //MyTimePicker()
+                MyCustomDialog(
+                    showDialog = showDialog, pokemonCombat = pokemonCombat,
+                    onStartCombat = {
+                        //Iniciar el Combate
+                        showDialog =  false
+
+                    }, onDismissDialog = { showDialog =  false }
+                )
+
                 MyModalDrawer(drawerState) {
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                         topBar = { MyTopAppBar { scope.launch { drawerState.open() } } },
                         snackbarHost ={ SnackbarHost(hostState = snackbarHostState) },
-                        floatingActionButton = { MyFAB() },
+                        floatingActionButton = { MyFAB{ showDialog = true } },
                         floatingActionButtonPosition = FabPosition.Center,
                         bottomBar = { MyNavigationBar() }
                     ) { innerPadding ->
