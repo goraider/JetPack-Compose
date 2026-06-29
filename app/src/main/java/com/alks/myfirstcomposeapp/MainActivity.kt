@@ -61,6 +61,7 @@ import com.alks.myfirstcomposeapp.components.ParentCheckBoxes
 import com.alks.myfirstcomposeapp.components.Progress
 import com.alks.myfirstcomposeapp.components.ProgressAdvance
 import com.alks.myfirstcomposeapp.components.ProgressAnimation
+import com.alks.myfirstcomposeapp.components.advance.InteractionSourceExample
 import com.alks.myfirstcomposeapp.components.layout.ExerciseOne
 import com.alks.myfirstcomposeapp.components.layout.MyBox
 import com.alks.myfirstcomposeapp.components.layout.MyColumn
@@ -123,6 +124,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             })
+                            InteractionSourceExample()
                         }
                         MyExposedDropDownMenu(Modifier.padding(innerPadding))
                     }
